@@ -12,8 +12,9 @@ class ApplicationController < ActionController::API
 
 
   def full_json
-    # ...
+    render json: @data
   end
+
 
   def show
     # ...
