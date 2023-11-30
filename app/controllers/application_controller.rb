@@ -36,7 +36,21 @@ class ApplicationController < ActionController::API
   end
 
   def update
-    # ...
+    resource_key = params[:resource]
+    id = params[:id].to_i
+    resource_item = find_item_by_field(@data[resource_key], "id", id)
+
+    if resource_item
+      payload = JSON.parse(params[:application].to_json)
+
+      # Update only the fields provided in the payload
+      resource_item.merge!(payload)
+
+      save_data
+      render json: resource_item, status: 200
+    else
+      render json: { error: "#{resource_key} item with ID #{id} not found" }, status: 404
+    end
   end
 
   def destroy
