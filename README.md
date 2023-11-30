@@ -94,3 +94,7 @@ This section outlines the upcoming features and improvements planned for this pr
 
 - [ ] **Group By**: Implement grouping of records based on a particular field.
 
+- [ ] **Gem Release**: Package the project as a Ruby gem for easier integration
+
+
+
