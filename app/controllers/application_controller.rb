@@ -29,7 +29,10 @@ class ApplicationController < ActionController::API
   end
 
   def create
-    # ...
+    resource_key = params[:resource]
+    @data[resource_key] << JSON.parse(params[:application].to_json)
+    save_data
+    render json: @data[resource_key], status: 201
   end
 
   def update
