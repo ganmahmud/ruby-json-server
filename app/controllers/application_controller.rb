@@ -58,15 +58,13 @@ class ApplicationController < ActionController::API
   end
 
   private
-
   def load_data
-    # ...
+    @data ||= JSON.parse(File.read("#{Rails.root}/public/db.json"))
   end
 
   private
-
   def save_data
-    # ...
+    File.write("#{Rails.root}/public/db.json", JSON.pretty_generate(@data))
   end
 
   # Utils
