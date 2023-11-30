@@ -17,7 +17,15 @@ class ApplicationController < ActionController::API
 
 
   def show
-    # ...
+    resource_key = params[:resource]
+    id = params[:id].to_i
+    item = find_item_by_field(@data[resource_key], "id", id)
+
+    if item
+      render json: item, status: 200
+    else
+      render json: { error: "#{resource_key} item with ID #{id} not found" }, status: 404
+    end
   end
 
   def create
