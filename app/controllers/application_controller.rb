@@ -10,7 +10,6 @@ class ApplicationController < ActionController::API
     end
   end
 
-
   def full_json
     render json: @data
   end
@@ -53,8 +52,19 @@ class ApplicationController < ActionController::API
     end
   end
 
+
   def destroy
-    # ...
+    resource_key = params[:resource]
+    id = params[:id].to_i
+    resource_item_index = find_index_by_id(@data[resource_key], id)
+
+    if resource_item_index
+      @data[resource_key].delete_at(resource_item_index)
+      save_data
+      render json: { message: "#{resource_key} item with ID #{id} deleted" }, status: 200
+    else
+      render json: { error: "#{resource_key} item with ID #{id} not found" }, status: 404
+    end
   end
 
   private
@@ -69,10 +79,11 @@ class ApplicationController < ActionController::API
 
   # Utils
   def find_index_by_id(resource_data, id)
-    # ...
+    resource_data.find_index { |item| item['id'] == id }
   end
 
   def find_item_by_field(resource_data, field, value)
-    # ...
+    resource_data.find { |item| item[field.to_s] == value }
   end
+
 end
