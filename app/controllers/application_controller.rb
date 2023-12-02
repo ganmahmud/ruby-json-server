@@ -23,7 +23,7 @@ class ApplicationController < ActionController::API
     if item
       render json: item, status: 200
     else
-      render json: { error: "#{resource_key} item with ID #{id} not found" }, status: 404
+      render json: { error: "#{resource_key.singularize} item with ID #{id} not found" }, status: 404
     end
   end
 
@@ -61,20 +61,24 @@ class ApplicationController < ActionController::API
     if resource_item_index
       @data[resource_key].delete_at(resource_item_index)
       save_data
-      render json: { message: "#{resource_key} item with ID #{id} deleted" }, status: 200
+      render json: { message: "#{resource_key.singularize} item with ID #{id} deleted" }, status: 200
     else
-      render json: { error: "#{resource_key} item with ID #{id} not found" }, status: 404
+      render json: { error: "#{resource_key.singularize} item with ID #{id} not found" }, status: 404
     end
   end
 
   private
   def load_data
-    @data ||= JSON.parse(File.read("#{Rails.root}/public/db.json"))
+    @data ||= JSON.parse(File.read(data_path))
+  end
+
+  def save_data
+    File.write(data_path, JSON.pretty_generate(@data))
   end
 
   private
-  def save_data
-    File.write("#{Rails.root}/public/db.json", JSON.pretty_generate(@data))
+  def data_path
+    Rails.env.test? ? Rails.configuration.test_data_file_path : "#{Rails.root}/public/db.json"
   end
 
   # Utils
