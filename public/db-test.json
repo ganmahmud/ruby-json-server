@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "First Test Post",
+      "author": "Alice"
+    },
+    {
+      "id": 2,
+      "title": "Second Test Post",
+      "author": "Bob"
+    },
+    {
+      "id": 3,
+      "title": "Third Test Post",
+      "author": "Charlie"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "Great post!",
+      "postId": 1
+    },
+    {
+      "id": 2,
+      "body": "Interesting read.",
+      "postId": 1
+    },
+    {
+      "id": 3,
+      "body": "Looking forward to more.",
+      "postId": 2
+    }
+  ]
+}

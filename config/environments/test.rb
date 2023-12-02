@@ -61,4 +61,7 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Set a specific test data file for the controller
+  config.test_data_file_path = "#{Rails.root}/public/db-test.json"
 end
